@@ -1,5 +1,5 @@
 {
-  "name": "myngapp",
+  "name": "product-crud",
   "$schema": "node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "prefix": "app",
@@ -10,13 +10,16 @@
       "executor": "@angular-devkit/build-angular:browser",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/myngapp",
+        "outputPath": "dist/product-crud",
         "index": "./src/index.html",
         "main": "./src/main.ts",
         "polyfills": ["zone.js"],
         "tsConfig": "./tsconfig.app.json",
         "assets": ["./src/favicon.ico", "./src/assets"],
-        "styles": ["./src/styles.scss"],
+        "styles": [
+          "./src/styles.scss",
+          "./node_modules/primeng/resources/primeng.min.css"
+        ],
         "scripts": []
       },
       "configurations": {
@@ -50,10 +53,10 @@
       "executor": "@angular-devkit/build-angular:dev-server",
       "configurations": {
         "production": {
-          "browserTarget": "myngapp:build:production"
+          "browserTarget": "product-crud:build:production"
         },
         "development": {
-          "browserTarget": "myngapp:build:development"
+          "browserTarget": "product-crud:build:development"
         }
       },
       "defaultConfiguration": "development"
@@ -61,7 +64,7 @@
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "browserTarget": "myngapp:build"
+        "browserTarget": "product-crud:build"
       }
     },
     "lint": {
@@ -88,7 +91,7 @@
     "serve-static": {
       "executor": "@nx/web:file-server",
       "options": {
-        "buildTarget": "myngapp:build"
+        "buildTarget": "product-crud:build"
       }
     }
   }
