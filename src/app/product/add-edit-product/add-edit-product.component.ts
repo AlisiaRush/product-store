@@ -101,22 +101,6 @@ export class AddEditProductComponent implements OnChanges {
     this.clickClose.emit(false);
   }
 
-  // showSuccess() {
-  //   if (this.selectedProduct) {
-  //     this.messageService.add({
-  //       severity: 'success',
-  //       summary: 'Success',
-  //       detail: "You're product has been successfully updated!",
-  //     });
-  //   } else {
-  //     this.messageService.add({
-  //       severity: 'success',
-  //       summary: 'Success',
-  //       detail: "You're product has been successfully added!",
-  //     });
-  //   }
-  // }
-
   showError() {
     this.messageService.add({
       severity: 'error',

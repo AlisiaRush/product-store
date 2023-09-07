@@ -31,13 +31,12 @@ export class ProductComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log('ngOnInit is called');
     this.getProductList();
   }
 
   getProductList() {
     this.productService.getProducts().subscribe((response) => {
-      console.log(response);
+      // console.log(response);
       this.products = response;
       this.cdr.detectChanges();
     });
@@ -52,8 +51,20 @@ export class ProductComponent implements OnInit {
     this.displayAddEditModal = !isClosed;
   }
 
-  saveProductToList(newData: any) {
-    this.products.unshift(newData);
+  saveorUpdateProductList(newData: any) {
+    // Check if this.selectedProduct is not null
+    if (this.selectedProduct && newData.id === this.selectedProduct.id) {
+      const productIndex = this.products.findIndex(
+        (data) => data.id === newData.id
+      );
+      if (productIndex !== -1) {
+        this.products[productIndex] = newData;
+      }
+    } else {
+      this.products.unshift(newData);
+    }
+
+    // this.getProductList(); // use this if you have a backend database.
   }
 
   showEditModal(product: IProduct) {
