@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+} from '@angular/core';
 import { ProductService } from './product.service';
 import { IProduct, IProductResponse } from './product';
 import { CommonModule } from '@angular/common';
@@ -13,33 +18,46 @@ import { AddEditProductComponent } from './add-edit-product/add-edit-product.com
   selector: 'app-product',
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductComponent implements OnInit {
   products: IProduct[] = [];
-  displayAddModal = false;
+  displayAddEditModal = false;
+  selectedProduct: any = null;
 
-  constructor(private productService: ProductService) {}
+  constructor(
+    private productService: ProductService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit() {
+    console.log('ngOnInit is called');
     this.getProductList();
   }
 
   getProductList() {
     this.productService.getProducts().subscribe((response) => {
-      // console.log(response);
+      console.log(response);
       this.products = response;
+      this.cdr.detectChanges();
     });
   }
 
   showAddModal() {
-    this.displayAddModal = true;
+    this.displayAddEditModal = true;
+    this.selectedProduct = null;
   }
 
   hideAddModal(isClosed: boolean) {
-    this.displayAddModal = !isClosed;
+    this.displayAddEditModal = !isClosed;
   }
 
   saveProductToList(newData: any) {
     this.products.unshift(newData);
+  }
+
+  showEditModal(product: IProduct) {
+    this.displayAddEditModal = true;
+    this.selectedProduct = product;
   }
 }

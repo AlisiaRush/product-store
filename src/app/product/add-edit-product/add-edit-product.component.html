@@ -1,9 +1,10 @@
 <p-dialog
-  header="Header"
-  [(visible)]="displayAddModal"
-  [style]="{ width: '50vw' }"
+  header="{{ modalTitle }} Product"
+  [(visible)]="displayAddEditModal"
+  [style]="{ width: '40vw' }"
+  (onHide)="closeModal()"
 >
-  <form [formGroup]="productForm">
+  <form [formGroup]="productForm" class="product-form">
     <div class="field">
       <label class="block" for="title">TItle</label>
       <input type="text" id="title" formControlName="title" pInputText />
@@ -70,11 +71,13 @@
     </p-button>
 
     <p-button
-      (click)="addProduct()"
+      (click)="addEditProduct()"
       styleClass="p-button-text"
       [disabled]="productForm.invalid"
     >
-      Add
+      {{ modalTitle }} Product
     </p-button>
   </ng-template>
 </p-dialog>
+
+<p-toast></p-toast>

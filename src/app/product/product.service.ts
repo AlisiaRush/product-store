@@ -15,10 +15,20 @@ export class ProductService {
     );
   }
 
-  saveProducts(postData: IProductResponse): Observable<IProductResponse> {
-    return this.http.post<IProductResponse>(
-      'https://fakestoreapi.com/products',
-      postData
-    );
+  addEditProduct(
+    postData: IProductResponse,
+    modalTitle: string
+  ): Observable<IProductResponse> {
+    if (modalTitle === 'Add') {
+      return this.http.post<IProductResponse>(
+        'https://fakestoreapi.com/products',
+        postData
+      );
+    } else {
+      return this.http.put<IProduct>(
+        `https://fakestoreapi.com/products/${postData.id}`,
+        postData
+      );
+    }
   }
 }
